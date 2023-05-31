@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+
+    <div class="container">
+        <div class="row">
+            <aside class="col-md-3">
+                <!--   SIDEBAR   -->
+                <ul class="list-group">
+                    <a class="list-group-item {% if "/dashboard/" in request.path %} active{% endif %}"
+                        href="{% url 'dashboard' %}"> Deshboard </a>
+                    <a class="list-group-item {% if "/my_orders/" in request.path %} active{% endif %}"
+                        href="{% url 'my_orders' %}"> My Order </a>
+                    <a class="list-group-item {% if "/edit_profile/" in request.path %} active{% endif %}"
+                        href="{% url 'edit_profile' %}">Edit Profile </a>
+                    <a class="list-group-item {% if "/change_password/" in request.path %} active{% endif %}"
+                        href="{% url 'change_password' %}">Change Password</a>
+
+                </ul>
+                <br>
+                <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span
+                        class="text">Log
+                        out</span> </a>
+                <!--   SIDEBAR .//END   -->
+            </aside>
+            <main class="col-md-9">
+                <article class="card">
+                    <header class="card-header">
+                        <strong class="d-inline-block mr-3">Login In As</strong>
+                        <span>{{request.user.full_name}}</span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p>Total Order</p>
+                                        <h4>{{orders_count}}</h4>
+                                        <a href="{% url 'my_orders' %}">View Order</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        {% if userProfile.profile_image %}
+                                        <img src="{{userProfile.profile_image.url}}" alt="Profile Image" width="55px"
+                                            style="border-radius: 50px ">
+                                        {% else %}
+                                        <img src="{% static 'default_img.png' %}" alt="Profile Image" width="55px"
+                                            style="border-radius: 50px ">
+                                        {% endif %}
+
+                                        <p class="mb-0">{{request.user.email}}</p>
+                                        <p class="mb-0">{{request.user.phone}}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- card-body .// -->
+
+                </article> <!-- order-group.// -->
+            </main>
+        </div> <!-- row.// -->
+    </div>
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+{% endblock content %}

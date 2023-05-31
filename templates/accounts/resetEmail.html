@@ -1,0 +1,6 @@
+{% autoescape off %}
+
+Hello {{ user.first_name }},
+Reset Password Link
+http://{{domain}}{% url 'changePassword'  uidb64=uidb64 token=verification_code %}
+{% endautoescape %}

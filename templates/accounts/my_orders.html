@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+
+    <div class="container">
+        <div class="row">
+            <aside class="col-md-3">
+                <!--   SIDEBAR   -->
+                <ul class="list-group">
+                    <a class="list-group-item {% if "/dashboard/" in request.path %} active{% endif %}"
+                        href="{% url 'dashboard' %}"> Deshboard </a>
+                    <a class="list-group-item {% if "/my_orders/" in request.path %} active{% endif %}"
+                        href="{% url 'my_orders' %}"> My Order </a>
+                    <a class="list-group-item {% if "/edit_profile/" in request.path %} active{% endif %}"
+                        href="{% url 'edit_profile' %}">Edit Profile </a>
+                    <a class="list-group-item {% if "/change_password/" in request.path %} active{% endif %}"
+                        href="{% url 'change_password' %}">Change Password</a>
+
+                </ul>
+                <br>
+                <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span
+                        class="text">Log
+                        out</span> </a>
+                <!--   SIDEBAR .//END   -->
+            </aside>
+            <main class="col-md-9">
+                <article class="card">
+                    <header class="card-header">
+                        <strong class="d-inline-block mr-3">Your Order Histroy</strong>
+
+                    </header>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">#Order</th>
+                                    <th scope="col">Billing Number</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Order Total</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr class="text-center">
+                                    <th><a href="{% url 'order_details' order.order_number %}">{{order.order_number}}
+                                        </a></th>
+                                    <td>{{order.full_name}}</td>
+                                    <td>{{order.phone}}</td>
+                                    <td>{{order.order_total}}</td>
+                                    <td>{{order.update_at}}</td>
+
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div> <!-- card-body .// -->
+
+                </article> <!-- order-group.// -->
+            </main>
+        </div> <!-- row.// -->
+    </div>
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+{% endblock content %}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-content padding-y bg">
+    <div class="container">
+
+        <!-- ============================ COMPONENT 1 ================================= -->
+
+
+        <div class="row">
+            <h2 class="font-weight-bold text-center mx-auto">Review Your Order And Make Payment</h2>
+            <aside class="col-lg-8">
+                <div class="card">
+                    <div class="card-header font-weight-bold">
+                        Billing Address
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{{order.full_name}}</p>
+                        <p class="mb-0">{{order.full_address}}</p>
+                        <p class="mb-0">{{order.city}}</p>
+                        <p class="mb-0">{{order.country}}</p>
+                        <p class="mb-0">Order Note: {{order.order_note}}</p>
+                        <p class="mb-0">{{order.email}}</p>
+                        <p class="mb-0">{{order.phone}}</p>
+
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header font-weight-bold">
+                        Review Product
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless table-shopping-cart">
+                            <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="120">Quantity</th>
+                                    <th scope="col" width="120">Price</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_item  %}
+                                <tr>
+                                    <td>
+                                        <figure class="itemside align-items-center">
+                                            <div class="aside"><img src="{{item.product.image.url}}" class="img-sm">
+                                            </div>
+                                            <figcaption class="info">
+                                                <a href="{{item.product.get_url}}"
+                                                    class="title text-dark">{{item.product}}</a>
+                                                <p class="text-muted small">
+
+                                                    {% for i in item.variation.all %}
+                                                    {{i.variation_category | capfirst}} :
+                                                    {{i.variation_value | capfirst}}
+                                                    <br>
+                                                    {% endfor %}
+                                                </p>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <!-- col.// -->
+                                        <div class="col">
+                                            <div class="input-group input-spinner">
+                                                <input type="text" class="form-control" value="{{item.quantity}}"
+                                                    readonly>
+                                            </div> <!-- input-group.// -->
+                                        </div> <!-- col.// -->
+                                    </td>
+                                    <td>
+                                        <div class="price-wrap">
+                                            <var class="price">BDT {{item.get_total}}</var>
+                                            <small class="text-muted"> BDT {{item.product.price}} each </small>
+                                        </div> <!-- price-wrap .// -->
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </aside> <!-- col.// -->
+            <aside class="col-lg-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:</dt>
+                            <dd class="text-right">BDT {{total}}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Tax:</dt>
+                            <dd class="text-right"> BDT {{tax}}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right text-dark b"><strong>BDT {{grandTotal}}</strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="{% static './images/misc/payments.png' %}" height="26">
+                        </p>
+
+
+                        <a href="{% url 'payment' order.order_number %}" class="btn btn-primary btn-block"> Make
+                            Payment </a>
+
+                    </div> <!-- card-body.// -->
+                </div> <!-- card.// -->
+
+            </aside> <!-- col.// -->
+
+
+        </div> <!-- row.// -->
+        <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+
+    </div> <!-- container .//  -->
+</section>
+
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% autoescape off %}
+hi {{user.first_name}}
+please click on blow link to confirm your registration.
+https://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+if you think it's not you, please ignore this email.
+
+{% endautoescape %}
